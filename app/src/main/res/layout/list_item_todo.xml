@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_48dp"
+    android:paddingRight="@dimen/dimen_16dp"
+    android:paddingLeft="@dimen/dimen_16dp">
+
+    <TextView
+        android:id="@+id/list_item_todo_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="16sp"
+        tools:text="Sample Todo"/>
+
+</RelativeLayout>

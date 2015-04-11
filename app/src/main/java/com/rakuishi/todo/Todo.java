@@ -1,37 +1,30 @@
 package com.rakuishi.todo;
 
+import android.util.Log;
+
+import io.realm.RealmObject;
+
 /**
  * Created by rakuishi on 15/04/05.
  */
-public class Todo {
+public class Todo extends RealmObject {
 
-    private String text;
-    private boolean isChecked;
-    private long timestamp;
+    private String name;
+    private boolean completed;
 
-    public Todo(String text) {
-        this.text = text;
-        this.isChecked = false;
-        this.timestamp = System.currentTimeMillis() / 1000;
+    public String getName() {
+        return name;
     }
 
-    public Todo(String text, boolean isChecked) {
-        this.text = text;
-        this.isChecked = isChecked;
-        this.timestamp = System.currentTimeMillis() / 1000;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Todo(String text, boolean isChecked, int timestamp) {
-        this.text = text;
-        this.isChecked = isChecked;
-        this.timestamp = timestamp;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public String getText() {
-        return this.text;
-    }
-
-    public boolean getIsChecked() {
-        return this.isChecked;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
