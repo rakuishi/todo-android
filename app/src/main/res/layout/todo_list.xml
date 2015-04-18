@@ -20,6 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <include
+            android:id="@+id/todo_list_empty_tv"
+            layout="@layout/todo_empty"/>
+
         <ImageButton
             android:id="@+id/todo_list_add_ib"
             android:layout_width="@dimen/dp_56"

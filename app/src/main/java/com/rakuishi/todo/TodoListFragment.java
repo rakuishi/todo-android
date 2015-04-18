@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import static com.rakuishi.todo.ResultCode.TODO_CREATE;
 
@@ -31,6 +32,7 @@ public class TodoListFragment extends Fragment {
 
     @InjectView(R.id.todo_list_lv) ListView mListView;
     @InjectView(R.id.todo_list_toolbar) Toolbar mToolbar;
+    @InjectView(R.id.todo_list_empty_tv) TextView mEmptyTextView;
 
     @OnClick(R.id.todo_list_add_ib)
     void onClickInsertButton() {
@@ -76,8 +78,7 @@ public class TodoListFragment extends Fragment {
 
         mAdapter = new TodoListAdapter(getActivity(), mTodoManager.findAll(), true);
         mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        mListView.invalidate();
+        mListView.setEmptyView(mEmptyTextView);
     }
 
     @Override
