@@ -114,7 +114,7 @@ public class TodoListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) {
             case TODO_CREATE:
-                refreshTodo();
+                // RealmBaseAdapter watch Realm data changing.
                 return;
         }
 
@@ -122,10 +122,6 @@ public class TodoListFragment extends Fragment {
     }
 
     private void deleteCompletedTodo() {
-
-    }
-
-    private void refreshTodo() {
 
     }
 }
