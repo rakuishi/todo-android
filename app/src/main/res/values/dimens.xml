@@ -7,6 +7,7 @@
     <dimen name="raised_button_raised_elevation">8dp</dimen>
     <dimen name="floating_button_elevation">6dp</dimen>
     <dimen name="floating_button_raised_elevation">12dp</dimen>
+    <dimen name="no_elevation">0dp</dimen>
 
     <!-- Keylines and spacing
          http://www.google.com/design/spec/layout/metrics-keylines.html -->
