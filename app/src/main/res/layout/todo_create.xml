@@ -21,6 +21,7 @@
         android:textSize="@dimen/sp_subhead"
         android:textColor="@color/myTextColor"
         android:singleLine="true"
+        android:hint="@string/todo"
         tools:text="Sample Todo"/>
 
 </LinearLayout>
