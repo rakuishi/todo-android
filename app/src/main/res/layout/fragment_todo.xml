@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.rakuishi.todo.TodoFragment">
+    android:orientation="vertical">
 
     <include
         layout="@layout/toolbar"
@@ -13,7 +12,7 @@
         android:layout_height="@dimen/dp_56"/>
 
     <EditText
-        android:id="@+id/todo_edittext"
+        android:id="@+id/todo_et"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
         android:layout_marginTop="@dimen/dp_8"

@@ -15,12 +15,12 @@ import io.realm.RealmResults;
 /**
  * Created by rakuishi on 15/04/11.
  */
-public class TodoAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
+public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    public TodoAdapter(Context context, RealmResults<Todo> realmResults, boolean automaticUpdate) {
+    public TodoListAdapter(Context context, RealmResults<Todo> realmResults, boolean automaticUpdate) {
         super(context, realmResults, automaticUpdate);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -31,7 +31,7 @@ public class TodoAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.list_item_todo, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.todo_list_item, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -48,7 +48,7 @@ public class TodoAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
     }
 
     public static class ViewHolder {
-        @InjectView(R.id.list_item_todo_textview) TextView textView;
+        @InjectView(R.id.todo_list_item_tv) TextView textView;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);

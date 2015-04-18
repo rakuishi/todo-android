@@ -27,12 +27,12 @@ import io.realm.RealmResults;
 public class TodoListFragment extends Fragment {
 
     private Realm mRealm;
-    private TodoAdapter mAdapter;
+    private TodoListAdapter mAdapter;
 
-    @InjectView(R.id.todo_list_listview) ListView mListView;
+    @InjectView(R.id.todo_list_lv) ListView mListView;
     @InjectView(R.id.todo_list_toolbar) Toolbar mToolbar;
 
-    @OnClick(R.id.todo_list_add_button)
+    @OnClick(R.id.todo_list_add_ib)
     void onClickInsertButton() {
         mRealm.beginTransaction();
         Todo todo = mRealm.createObject(Todo.class);
@@ -42,7 +42,7 @@ public class TodoListFragment extends Fragment {
         mRealm.commitTransaction();
     }
 
-    @OnItemClick(R.id.todo_list_listview)
+    @OnItemClick(R.id.todo_list_lv)
     void onItemClick(int position) {
         Todo todo = mAdapter.getItem(position);
 
@@ -54,7 +54,7 @@ public class TodoListFragment extends Fragment {
         mListView.invalidate();
     }
 
-    @OnItemLongClick(R.id.todo_list_listview)
+    @OnItemLongClick(R.id.todo_list_lv)
     boolean onItemLongClick(int position) {
         return true;
     }
@@ -66,7 +66,7 @@ public class TodoListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_todo_list, container, false);
+        View rootView = inflater.inflate(R.layout.todo_list, container, false);
         ButterKnife.inject(this, rootView);
         return rootView;
     }
@@ -85,7 +85,7 @@ public class TodoListFragment extends Fragment {
         // activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // activity.getSupportActionBar().setHomeButtonEnabled(true);
 
-        mAdapter = new TodoAdapter(getActivity(), results, true);
+        mAdapter = new TodoListAdapter(getActivity(), results, true);
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         mListView.invalidate();
