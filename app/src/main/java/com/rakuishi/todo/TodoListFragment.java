@@ -36,6 +36,7 @@ public class TodoListFragment extends Fragment {
     void onClickInsertButton() {
         mRealm.beginTransaction();
         Todo todo = mRealm.createObject(Todo.class);
+        todo.setId((int)mRealm.where(Todo.class).maximumInt("id") + 1);
         todo.setName("Sample");
         todo.setCompleted(false);
         mRealm.commitTransaction();
