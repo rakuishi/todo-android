@@ -91,7 +91,7 @@ public class TodoListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.m_delete:
-                deleteCompletedTodo();
+                mTodoManager.deleteCompleted();
                 return true;
         }
 
@@ -107,9 +107,5 @@ public class TodoListFragment extends Fragment {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void deleteCompletedTodo() {
-        mTodoManager.deleteCompleted();
     }
 }
