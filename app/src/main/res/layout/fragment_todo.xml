@@ -1,0 +1,26 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rakuishi.todo.TodoFragment">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/todo_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56"/>
+
+    <EditText
+        android:id="@+id/todo_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:textSize="@dimen/sp_subhead"
+        android:textColor="@color/myTextColor"
+        tools:text="Sample Todo"/>
+
+</LinearLayout>
