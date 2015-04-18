@@ -9,11 +9,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnTextChanged;
 
 /**
  * Created by rakuishi on 15/04/18.
@@ -59,6 +59,7 @@ public class TodoCreateActivity extends ActionBarActivity implements TextWatcher
         }
 
         mEditText.addTextChangedListener(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @Override
