@@ -18,11 +18,10 @@ import io.realm.Realm;
  */
 public class TodoCreateActivity extends ActionBarActivity {
 
-    private int mId;
+    private Todo mTodo;
     private Realm mRealm;
 
-    @InjectView(R.id.todo_create_et)
-    EditText mEditText;
+    @InjectView(R.id.todo_create_et) EditText mEditText;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, TodoCreateActivity.class);
@@ -43,13 +42,15 @@ public class TodoCreateActivity extends ActionBarActivity {
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.todo_create);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            mId = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
-            if (mId != -1) {
-                Todo todo = mRealm.where(Todo.class).equalTo("id", mId).findAll().first();
-                mEditText.setText(todo.getName());
+            int id = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
+            if (id != -1) {
+                mTodo = mRealm.where(Todo.class).equalTo("id", id).findAll().first();
+                mEditText.setText(mTodo.getName());
+                getSupportActionBar().setTitle(R.string.todo_update);
             }
         }
     }
@@ -64,7 +65,14 @@ public class TodoCreateActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.m_done:
-                return true;
+                mRealm.beginTransaction();
+                if (mTodo == null) {
+                    mTodo = mRealm.createObject(Todo.class);
+                    mTodo.setId((int)mRealm.where(Todo.class).maximumInt("id") + 1);
+                    mTodo.setCompleted(false);
+                }
+                mTodo.setName(mEditText.getText().toString());
+                mRealm.commitTransaction();
             case android.R.id.home:
                 finish();
                 Intent intent = new Intent(this, MainActivity.class);

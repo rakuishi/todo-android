@@ -20,6 +20,7 @@
         android:layout_marginLeft="@dimen/dp_16"
         android:textSize="@dimen/sp_subhead"
         android:textColor="@color/myTextColor"
+        android:singleLine="true"
         tools:text="Sample Todo"/>
 
 </LinearLayout>
