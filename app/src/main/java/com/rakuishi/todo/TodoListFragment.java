@@ -2,28 +2,24 @@ package com.rakuishi.todo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import butterknife.OnItemSelected;
 import io.realm.Realm;
-import io.realm.RealmBaseAdapter;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
  * Created by rakuishi on 15/04/05.
  */
-public class TodoFragment extends Fragment {
+public class TodoListFragment extends Fragment {
 
     private Realm mRealm;
     private TodoAdapter mAdapter;
@@ -34,11 +30,9 @@ public class TodoFragment extends Fragment {
     @OnClick(R.id.todo_insert_button)
     void onClickInsertButton() {
         mRealm.beginTransaction();
-
         Todo todo = mRealm.createObject(Todo.class);
         todo.setName("Sample");
         todo.setCompleted(false);
-
         mRealm.commitTransaction();
     }
 
@@ -54,14 +48,14 @@ public class TodoFragment extends Fragment {
         mListView.invalidate();
     }
 
-    public TodoFragment() {
+    public TodoListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_todo, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_todo_list, container, false);
         ButterKnife.inject(this, rootView);
         return rootView;
     }
