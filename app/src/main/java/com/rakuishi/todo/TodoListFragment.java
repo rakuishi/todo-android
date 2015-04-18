@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import static android.app.Activity.RESULT_OK;
 import static com.rakuishi.todo.ResultCode.TODO_CREATE;
 
 import butterknife.ButterKnife;
@@ -22,16 +20,13 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 /**
  * Created by rakuishi on 15/04/05.
  */
 public class TodoListFragment extends Fragment {
 
-    private Realm mRealm;
+    private TodoManager mTodoManager;
     private TodoListAdapter mAdapter;
 
     @InjectView(R.id.todo_list_lv) ListView mListView;
@@ -45,11 +40,7 @@ public class TodoListFragment extends Fragment {
     @OnItemClick(R.id.todo_list_lv)
     void onItemClick(int position) {
         Todo todo = mAdapter.getItem(position);
-
-        mRealm.beginTransaction();
-        todo.setCompleted(!todo.isCompleted());
-        mRealm.commitTransaction();
-
+        mTodoManager.update(todo, !todo.isCompleted());
         mAdapter.notifyDataSetChanged();
         mListView.invalidate();
     }
@@ -78,16 +69,12 @@ public class TodoListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mRealm = Realm.getInstance(getActivity());
-        RealmQuery<Todo> query = mRealm.where(Todo.class);
-        RealmResults<Todo> results = query.findAll();
+        mTodoManager = new TodoManager(getActivity());
 
         ActionBarActivity activity = (ActionBarActivity)getActivity();
         activity.setSupportActionBar(mToolbar);
-        // activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // activity.getSupportActionBar().setHomeButtonEnabled(true);
 
-        mAdapter = new TodoListAdapter(getActivity(), results, true);
+        mAdapter = new TodoListAdapter(getActivity(), mTodoManager.findAll(), true);
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         mListView.invalidate();
@@ -122,9 +109,6 @@ public class TodoListFragment extends Fragment {
     }
 
     private void deleteCompletedTodo() {
-        mRealm.beginTransaction();
-        RealmResults<Todo> results = mRealm.where(Todo.class).equalTo("completed", true).findAll();
-        results.clear();
-        mRealm.commitTransaction();
+        mTodoManager.deleteCompleted();
     }
 }

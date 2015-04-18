@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import io.realm.Realm;
 
 /**
  * Created by rakuishi on 15/04/18.
@@ -19,7 +18,7 @@ import io.realm.Realm;
 public class TodoCreateActivity extends ActionBarActivity {
 
     private Todo mTodo;
-    private Realm mRealm;
+    private TodoManager mTodoManager;
 
     @InjectView(R.id.todo_create_et) EditText mEditText;
 
@@ -38,7 +37,7 @@ public class TodoCreateActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_create);
         ButterKnife.inject(this);
-        mRealm = Realm.getInstance(this);
+        mTodoManager = new TodoManager(this);
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,7 +47,7 @@ public class TodoCreateActivity extends ActionBarActivity {
         if (extras != null) {
             int id = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
             if (id != -1) {
-                mTodo = mRealm.where(Todo.class).equalTo("id", id).findAll().first();
+                mTodo = mTodoManager.find(id);
                 mEditText.setText(mTodo.getName());
                 getSupportActionBar().setTitle(R.string.todo_update);
             }
@@ -65,14 +64,11 @@ public class TodoCreateActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.m_done:
-                mRealm.beginTransaction();
                 if (mTodo == null) {
-                    mTodo = mRealm.createObject(Todo.class);
-                    mTodo.setId((int)mRealm.where(Todo.class).maximumInt("id") + 1);
-                    mTodo.setCompleted(false);
+                    mTodoManager.insert(mEditText.getText().toString(), false);
+                } else {
+                    mTodoManager.update(mTodo, mEditText.getText().toString());
                 }
-                mTodo.setName(mEditText.getText().toString());
-                mRealm.commitTransaction();
             case android.R.id.home:
                 finish();
                 Intent intent = new Intent(this, MainActivity.class);
