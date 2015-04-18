@@ -5,20 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnTextChanged;
 
 /**
  * Created by rakuishi on 15/04/18.
  */
-public class TodoCreateActivity extends ActionBarActivity {
+public class TodoCreateActivity extends ActionBarActivity implements TextWatcher {
 
     private Todo mTodo;
     private TodoManager mTodoManager;
+    private MenuItem mDoneMenuItem;
 
     @InjectView(R.id.todo_create_et) EditText mEditText;
 
@@ -37,6 +41,7 @@ public class TodoCreateActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_create);
         ButterKnife.inject(this);
+
         mTodoManager = new TodoManager(this);
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
@@ -52,11 +57,15 @@ public class TodoCreateActivity extends ActionBarActivity {
                 getSupportActionBar().setTitle(R.string.todo_update);
             }
         }
+
+        mEditText.addTextChangedListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu options) {
-        getMenuInflater().inflate(R.menu.todo_create, options);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.todo_create, menu);
+        mDoneMenuItem = (MenuItem) menu.findItem(R.id.m_done);
+        updateDoneMenuItem(mEditText.getText().toString());
         return true;
     }
 
@@ -77,6 +86,31 @@ public class TodoCreateActivity extends ActionBarActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        updateDoneMenuItem(s.toString());
+    }
+
+    private void updateDoneMenuItem(String string) {
+        if (string.length() > 0) {
+            mDoneMenuItem.setEnabled(true);
+            mDoneMenuItem.getIcon().setAlpha(255);
+        } else {
+            mDoneMenuItem.setEnabled(false);
+            mDoneMenuItem.getIcon().setAlpha(127);
         }
     }
 }
