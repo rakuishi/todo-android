@@ -33,7 +33,7 @@
             android:layout_marginRight="@dimen/dp_16"
             android:tint="@android:color/white"
             android:src="@drawable/ic_add"
-            android:background="@xml/oval"
+            android:background="@drawable/oval"
             android:elevation="@dimen/floating_button_elevation"
             android:stateListAnimator="@anim/oval_elevation"/>
 
