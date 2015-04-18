@@ -1,9 +1,11 @@
 package com.rakuishi.todo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import static android.app.Activity.RESULT_OK;
+import static com.rakuishi.todo.ResultCode.TODO_CREATE;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,12 +39,7 @@ public class TodoListFragment extends Fragment {
 
     @OnClick(R.id.todo_list_add_ib)
     void onClickInsertButton() {
-        mRealm.beginTransaction();
-        Todo todo = mRealm.createObject(Todo.class);
-        todo.setId((int)mRealm.where(Todo.class).maximumInt("id") + 1);
-        todo.setName("Sample");
-        todo.setCompleted(false);
-        mRealm.commitTransaction();
+        startActivityForResult(TodoCreateActivity.createIntent(getActivity()), TODO_CREATE);
     }
 
     @OnItemClick(R.id.todo_list_lv)
@@ -56,6 +56,8 @@ public class TodoListFragment extends Fragment {
 
     @OnItemLongClick(R.id.todo_list_lv)
     boolean onItemLongClick(int position) {
+        Todo todo = mAdapter.getItem(position);
+        startActivityForResult(TodoCreateActivity.createIntent(getActivity(), todo.getId()), TODO_CREATE);
         return true;
     }
 
@@ -110,5 +112,15 @@ public class TodoListFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case TODO_CREATE:
+                return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
