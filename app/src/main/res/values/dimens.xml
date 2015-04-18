@@ -1,9 +1,40 @@
 <resources>
 
-    <!-- http://www.google.com/design/spec/layout/metrics-keylines.html -->
-    <dimen name="dimen_48dp">48dp</dimen>
-    <dimen name="dimen_24dp">24dp</dimen>
-    <dimen name="dimen_16dp">16dp</dimen>
-    <dimen name="dimen_8dp">8dp</dimen>
+    <!-- Elevation
+         http://www.google.com/design/spec/what-is-material/objects-in-3d-space.html -->
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="raised_button_raised_elevation">8dp</dimen>
+    <dimen name="floating_button_elevation">6dp</dimen>
+    <dimen name="floating_button_raised_elevation">12dp</dimen>
+
+    <!-- Keylines and spacing
+         http://www.google.com/design/spec/layout/metrics-keylines.html -->
+    <!-- Space between content areas -->
+    <dimen name="dp_8">8dp</dimen>
+    <!-- Defaults screen margin -->
+    <dimen name="dp_16">16dp</dimen>
+    <!-- Status bar, Icon size -->
+    <dimen name="dp_24">24dp</dimen>
+    <!-- Raised button height -->
+    <dimen name="dp_36">36dp</dimen>
+    <!-- Avatar -->
+    <dimen name="dp_40">40dp</dimen>
+    <!-- Subtitle, List Item -->
+    <dimen name="dp_48">48dp</dimen>
+    <!-- Toolbar height, Floating button size -->
+    <dimen name="dp_56">56dp</dimen>
+    <!-- Button min width -->
+    <dimen name="dp_64">64dp</dimen>
+    <!-- Title, List item -->
+    <dimen name="dp_72">72dp</dimen>
+
+    <!-- Typography
+         http://www.google.com/design/spec/style/typography.html -->
+    <dimen name="sp_head">24sp</dimen>
+    <dimen name="sp_title">20sp</dimen>
+    <dimen name="sp_subhead">16sp</dimen>
+    <dimen name="sp_body">14sp</dimen>
+    <dimen name="sp_caption">12sp</dimen>
 
 </resources>

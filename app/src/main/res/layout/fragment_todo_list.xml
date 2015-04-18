@@ -1,26 +1,39 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="TodoFragment">
 
-    <ListView
-        android:id="@+id/todo_listview"
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/dp_56"/>
 
-    <ImageButton
-        android:id="@+id/todo_insert_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:tint="@color/white"
-        android:src="@drawable/ic_add"
-        android:background="@xml/oval"
-        android:elevation="1dp"
-        android:stateListAnimator="@anim/oval_elevation"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <ListView
+            android:id="@+id/todo_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:id="@+id/todo_insert_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:tint="@android:color/white"
+            android:src="@drawable/ic_add"
+            android:background="@xml/oval"
+            android:elevation="1dp"
+            android:stateListAnimator="@anim/oval_elevation"/>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -2,7 +2,21 @@
 
 <resources>
 
-    <color name="primary">#3F51B5</color>
-    <color name="white">#FFFFFF</color>
+    <color name="myPrimaryColor">#3F51B5</color>
+    <color name="myPrimaryDarkColor">#303F9F</color>
+    <color name="myAccentColor">#FF4081</color>
+    <color name="myDrawerBackground">#FFF</color>
+    <color name="myWindowBackground">#FFF</color>
+    <color name="myTextPrimaryColor">#212121</color>
+    <color name="myNavigationColor">#000</color>
+
+    <color name="myTextColor">#212121</color>
+    <color name="mySecondaryTextColor">#727272</color>
+    <color name="myDisabledTextColor">#B8B8B8</color>
+    <color name="myHintTextColor">#B8B8B8</color>
+    <color name="myDividerColor">#DADADA</color>
+
+    <drawable name="pressedGray">#0c000000</drawable>
+    <drawable name="selectedGray">#2c000000</drawable>
 
 </resources>
