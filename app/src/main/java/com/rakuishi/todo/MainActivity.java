@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * In the future, add Navigation Drawer to MainActivity.
+ */
 public class MainActivity extends ActionBarActivity {
 
     @Override
