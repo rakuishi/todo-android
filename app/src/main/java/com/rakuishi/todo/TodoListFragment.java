@@ -122,6 +122,9 @@ public class TodoListFragment extends Fragment {
     }
 
     private void deleteCompletedTodo() {
-
+        mRealm.beginTransaction();
+        RealmResults<Todo> results = mRealm.where(Todo.class).equalTo("completed", true).findAll();
+        results.clear();
+        mRealm.commitTransaction();
     }
 }
