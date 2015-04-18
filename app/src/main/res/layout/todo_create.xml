@@ -7,12 +7,12 @@
 
     <include
         layout="@layout/toolbar"
-        android:id="@+id/todo_list_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"/>
 
     <EditText
-        android:id="@+id/todo_et"
+        android:id="@+id/todo_create_et"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
         android:layout_marginTop="@dimen/dp_8"
