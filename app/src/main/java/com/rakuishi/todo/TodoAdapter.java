@@ -17,10 +17,12 @@ import io.realm.RealmResults;
  */
 public class TodoAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
 
+    private Context mContext;
     private LayoutInflater mLayoutInflater;
 
     public TodoAdapter(Context context, RealmResults<Todo> realmResults, boolean automaticUpdate) {
         super(context, realmResults, automaticUpdate);
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -37,12 +39,10 @@ public class TodoAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
         }
 
         Todo todo = realmResults.get(position);
+        int textColor = todo.isCompleted() ? R.color.myDisabledTextColor : R.color.myTextColor;
 
-        if (todo.isCompleted()) {
-            viewHolder.textView.setText("✓ " + todo.getName());
-        } else {
-            viewHolder.textView.setText(todo.getName());
-        }
+        viewHolder.textView.setText(todo.getName());
+        viewHolder.textView.setTextColor(mContext.getResources().getColor(textColor));
 
         return convertView;
     }
