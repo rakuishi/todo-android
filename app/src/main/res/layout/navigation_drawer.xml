@@ -1,4 +1,25 @@
-<android.support.v7.widget.RecyclerView android:id="@+id/drawerList"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:clickable="true" android:scrollbars="vertical" android:fitsSystemWindows="true"
-    android:layout_height="match_parent" android:background="@color/myDrawerBackground" />
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/navigation_drawer_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_drawer_header_height"
+        android:background="@color/myPrimaryColor">
+    </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:clickable="true"
+        android:scrollbars="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:background="@color/myDrawerBackground"
+        android:layout_below="@id/navigation_drawer_header"/>
+
+</RelativeLayout>
