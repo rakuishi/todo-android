@@ -3,58 +3,34 @@ package com.rakuishi.todo;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment implements NavigationDrawerCallbacks {
+public class NavigationDrawerFragment extends Fragment implements NavigationDrawerCallbacks, AdapterView.OnItemClickListener {
 
-    /**
-     * Remember the position of the selected item.
-     */
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
-    /**
-     * Per the design guidelines, you should show the drawer on launch until the user manually
-     * expands it. This shared preference tracks this.
-     */
-    private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
-    /**
-     * A pointer to the current callbacks instance (the Activity).
-     */
-    private NavigationDrawerCallbacks mCallbacks;
-
-    /**
-     * Helper component that ties the action bar to the navigation drawer.
-     */
-    private ActionBarDrawerToggle mActionBarDrawerToggle;
-
-    private DrawerLayout mDrawerLayout;
-    private RecyclerView mDrawerList;
-    private View mFragmentContainerView;
-
     private int mCurrentSelectedPosition = 0;
+
+    private NavigationDrawerCallbacks mCallbacks;
+    private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private ListView mListView;
+    private View mFragmentContainerView;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -94,29 +70,15 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.navigation_drawer, container, false);
-        mDrawerList = (RecyclerView) view.findViewById(R.id.drawerList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mDrawerList.setLayoutManager(layoutManager);
-        mDrawerList.setHasFixedSize(true);
-
-        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter();
-        adapter.setNavigationDrawerCallbacks(this);
-        mDrawerList.setAdapter(adapter);
+        mListView = (ListView) view.findViewById(R.id.navigation_drawer_lv);
+        mListView.setAdapter(new NavigationDrawerAdapter(getActivity()));
+        mListView.setOnItemClickListener(this);
         selectItem(mCurrentSelectedPosition);
         return view;
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-    }
-
-    public ActionBarDrawerToggle getActionBarDrawerToggle() {
-        return mActionBarDrawerToggle;
-    }
-
-    public DrawerLayout getDrawerLayout() {
-        return mDrawerLayout;
     }
 
     @Override
@@ -134,15 +96,18 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public void setup(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = (View) getActivity().findViewById(fragmentId).getParent();
         mDrawerLayout = drawerLayout;
-
         mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.myPrimaryDarkColor));
 
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(
+            getActivity(),
+            mDrawerLayout,
+            R.string.drawer_open,
+            R.string.drawer_close)
+        {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 if (!isAdded()) return;
-
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
@@ -166,14 +131,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mDrawerLayout != null) {
+        if (mDrawerLayout != null)
             mDrawerLayout.closeDrawer(mFragmentContainerView);
-        }
-        if (mCallbacks != null) {
+        if (mCallbacks != null)
             mCallbacks.onNavigationDrawerItemSelected(position);
-        }
-        ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);
+
+        mCurrentSelectedPosition = position;
+        mListView.setItemChecked(position, true);
     }
 
     public void openDrawer() {
@@ -211,5 +175,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         super.onConfigurationChanged(newConfig);
         // Forward the new configuration the drawer toggle component.
         mActionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        selectItem(position);
     }
 }

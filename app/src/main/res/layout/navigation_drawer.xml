@@ -10,15 +10,16 @@
         android:background="@color/myPrimaryColor">
     </FrameLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/drawerList"
+    <ListView
+        android:id="@+id/navigation_drawer_lv"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:clickable="true"
-        android:scrollbars="vertical"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:choiceMode="singleChoice"
+        android:clipToPadding="false"
         android:background="@color/myDrawerBackground"
         android:layout_below="@id/navigation_drawer_header"/>
 

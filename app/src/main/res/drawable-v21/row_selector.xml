@@ -6,6 +6,9 @@
     <item>
         <selector>
             <item
+                android:state_checked="true"
+                android:drawable="@drawable/selectedGray"/>
+            <item
                 android:state_selected="true"
                 android:drawable="@drawable/selectedGray"/>
             <item
