@@ -11,17 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"/>
 
-    <EditText
-        android:id="@+id/todo_create_et"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_16"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:textSize="@dimen/sp_subhead"
-        android:textColor="@color/myTextColor"
-        android:singleLine="true"
-        android:hint="@string/todo"
-        tools:text="Sample Todo"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/todo_create_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_48"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:textSize="@dimen/sp_subhead"
+                android:textColor="@color/myTextColor"
+                android:hint="@string/todo"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

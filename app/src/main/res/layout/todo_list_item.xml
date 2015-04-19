@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_48"
+    android:layout_height="@dimen/dp_72"
     android:paddingRight="@dimen/dp_16"
     android:paddingLeft="@dimen/dp_16">
 
@@ -14,6 +14,7 @@
         android:layout_centerVertical="true"
         android:textSize="@dimen/sp_subhead"
         android:textColor="@color/myTextColor"
-        tools:text="Sample Todo"/>
+        android:maxLines="3"
+        tools:text="Todo"/>
 
 </RelativeLayout>
