@@ -16,7 +16,7 @@
     <color name="myHintTextColor">#B8B8B8</color>
     <color name="myDividerColor">#DADADA</color>
 
-    <drawable name="pressedGray">#0c000000</drawable>
-    <drawable name="selectedGray">#2c000000</drawable>
+    <drawable name="pressedGray">#0a000000</drawable>
+    <drawable name="selectedGray">#14000000</drawable>
 
 </resources>
