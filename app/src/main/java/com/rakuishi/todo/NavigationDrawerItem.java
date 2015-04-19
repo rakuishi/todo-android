@@ -6,7 +6,8 @@ package com.rakuishi.todo;
 public class NavigationDrawerItem {
 
     public static final int TYPE_SEPARATOR = 0;
-    public static final int TYPE_ITEM = 1;
+    public static final int TYPE_CHECKABLE_ITEM = 1;
+    public static final int TYPE_ITEM = 2;
 
     private int resId;
     private String name;

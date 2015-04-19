@@ -135,9 +135,12 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         if (mCallbacks != null)
             mCallbacks.onNavigationDrawerItemSelected(position);
-
-        mCurrentSelectedPosition = position;
-        mListView.setItemChecked(position, true);
+        if (((NavigationDrawerAdapter)mListView.getAdapter()).isCheckableItem(position)) {
+            mCurrentSelectedPosition = position;
+            mListView.setItemChecked(position, true);
+        } else {
+            mListView.setItemChecked(mCurrentSelectedPosition, true);
+        }
     }
 
     public void openDrawer() {
@@ -173,7 +176,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Forward the new configuration the drawer toggle component.
         mActionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
