@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
             case TYPE_CHECKABLE_ITEM:
                 getFragmentManager()
                         .beginTransaction()
-                        .add(R.id.container, new TodoListFragment())
+                        .replace(R.id.container, new TodoListFragment())
                         .commit();
                 break;
             case TYPE_ITEM:
