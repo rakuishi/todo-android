@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
 
     private List<NavigationDrawerItem> createNavigationDrawerItemList() {
         List<NavigationDrawerItem> list = new ArrayList<>();
-        list.add(new NavigationDrawerItem(R.drawable.ic_check, getResources().getString(R.string.drawer_item_todo), TYPE_CHECKABLE_ITEM));
+        list.add(new NavigationDrawerItem(R.drawable.ic_inbox, getResources().getString(R.string.drawer_item_todo), TYPE_CHECKABLE_ITEM));
         list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
         list.add(new NavigationDrawerItem(R.drawable.ic_settings, getResources().getString(R.string.drawer_item_settings), TYPE_ITEM));
         return list;
