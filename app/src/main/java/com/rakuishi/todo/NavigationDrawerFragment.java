@@ -100,8 +100,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         mDrawerList.setLayoutManager(layoutManager);
         mDrawerList.setHasFixedSize(true);
 
-        final List<NavigationItem> navigationItems = getMenu();
-        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
+        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter();
         adapter.setNavigationDrawerCallbacks(this);
         mDrawerList.setAdapter(adapter);
         selectItem(mCurrentSelectedPosition);
@@ -123,14 +122,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         selectItem(position);
-    }
-
-    public List<NavigationItem> getMenu() {
-        List<NavigationItem> items = new ArrayList<NavigationItem>();
-        items.add(new NavigationItem("item 1", getResources().getDrawable(R.drawable.ic_done)));
-        items.add(new NavigationItem("item 2", getResources().getDrawable(R.drawable.ic_done)));
-        items.add(new NavigationItem("item 3", getResources().getDrawable(R.drawable.ic_done)));
-        return items;
     }
 
     /**
@@ -182,7 +173,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
-        // ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);
+        ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);
     }
 
     public void openDrawer() {

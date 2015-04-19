@@ -1,11 +1,13 @@
 package com.rakuishi.todo;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +20,8 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private View mSelectedView;
     private int mSelectedPosition;
 
-    public NavigationDrawerAdapter(List<NavigationItem> data) {
-        mData = data;
+    public NavigationDrawerAdapter() {
+        mData = createData();
     }
 
     public NavigationDrawerCallbacks getNavigationDrawerCallbacks() {
@@ -28,6 +30,14 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     public void setNavigationDrawerCallbacks(NavigationDrawerCallbacks navigationDrawerCallbacks) {
         mNavigationDrawerCallbacks = navigationDrawerCallbacks;
+    }
+
+    private List<NavigationItem> createData() {
+        List<NavigationItem> items = new ArrayList<NavigationItem>();
+        items.add(new NavigationItem("item 1"));
+        items.add(new NavigationItem("item 2"));
+        items.add(new NavigationItem("item 3"));
+        return items;
     }
 
     @Override
@@ -56,7 +66,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     @Override
     public void onBindViewHolder(NavigationDrawerAdapter.ViewHolder viewHolder, int i) {
         viewHolder.textView.setText(mData.get(i).getText());
-        viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(mData.get(i).getDrawable(), null, null, null);
+        // viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(mData.get(i).getDrawable(), null, null, null);
         if (mSelectedPosition == i) {
             if (mSelectedView != null) {
                 mSelectedView.setSelected(false);
