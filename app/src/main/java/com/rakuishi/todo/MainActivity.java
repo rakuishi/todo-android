@@ -1,38 +1,50 @@
 package com.rakuishi.todo;
 
+import static com.rakuishi.todo.NavigationDrawerItem.TYPE_SEPARATOR;
+import static com.rakuishi.todo.NavigationDrawerItem.TYPE_CHECKABLE_ITEM;
+import static com.rakuishi.todo.NavigationDrawerItem.TYPE_ITEM;
+
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private NavigationDrawerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAdapter = new NavigationDrawerAdapter(this, createNavigationDrawerItemList());
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
-        TodoListFragment fragment = new TodoListFragment();
-
-        getFragmentManager()
-            .beginTransaction()
-            .add(R.id.container, fragment)
-            .commit();
 
         mNavigationDrawerFragment.setup(
                 R.id.fragment_drawer,
-                (DrawerLayout) findViewById(R.id.drawer)
+                (DrawerLayout) findViewById(R.id.drawer),
+                mAdapter
         );
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        switch (mAdapter.getItem(position).getType()) {
+            case TYPE_CHECKABLE_ITEM:
+                getFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.container, new TodoListFragment())
+                        .commit();
+                break;
+            case TYPE_ITEM:
+                // Such as Launching Activity Code
+                break;
+        }
     }
 
     @Override
@@ -42,5 +54,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
         } else {
             super.onBackPressed();
         }
+    }
+
+    private List<NavigationDrawerItem> createNavigationDrawerItemList() {
+        List<NavigationDrawerItem> list = new ArrayList<>();
+        list.add(new NavigationDrawerItem(R.drawable.ic_check, getResources().getString(R.string.drawer_item_todo), TYPE_CHECKABLE_ITEM));
+        list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
+        list.add(new NavigationDrawerItem(R.drawable.ic_settings, getResources().getString(R.string.drawer_item_settings), TYPE_ITEM));
+        return list;
     }
 }

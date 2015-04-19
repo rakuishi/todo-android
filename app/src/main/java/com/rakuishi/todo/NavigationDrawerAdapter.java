@@ -1,11 +1,9 @@
 package com.rakuishi.todo;
 
-import static com.rakuishi.todo.NavigationDrawerItem.TYPE_SEPARATOR;
 import static com.rakuishi.todo.NavigationDrawerItem.TYPE_CHECKABLE_ITEM;
 import static com.rakuishi.todo.NavigationDrawerItem.TYPE_ITEM;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,30 +11,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class NavigationDrawerAdapter extends BaseAdapter {
 
-    private Context mContext;
     private LayoutInflater mInflater;
     private List<NavigationDrawerItem> mNavigationDrawerItemList;
 
-    public NavigationDrawerAdapter(Context context) {
-        mContext = context;
+    public NavigationDrawerAdapter(Context context, List<NavigationDrawerItem> list) {
         mInflater = LayoutInflater.from(context);
-        mNavigationDrawerItemList = createNavigationDrawerItemList();
-    }
-
-    private List<NavigationDrawerItem> createNavigationDrawerItemList() {
-        Resources resources = mContext.getResources();
-        List<NavigationDrawerItem> list = new ArrayList<>();
-        list.add(new NavigationDrawerItem(R.drawable.ic_check, resources.getString(R.string.drawer_item_todo), TYPE_CHECKABLE_ITEM));
-        list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
-        list.add(new NavigationDrawerItem(R.drawable.ic_settings, resources.getString(R.string.drawer_item_settings), TYPE_ITEM));
-        return list;
+        mNavigationDrawerItemList = list;
     }
 
     public boolean isCheckableItem(int position) {

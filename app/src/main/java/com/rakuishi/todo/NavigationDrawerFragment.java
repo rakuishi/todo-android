@@ -71,9 +71,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.navigation_drawer, container, false);
         mListView = (ListView) view.findViewById(R.id.navigation_drawer_lv);
-        mListView.setAdapter(new NavigationDrawerAdapter(getActivity()));
-        mListView.setOnItemClickListener(this);
-        selectItem(mCurrentSelectedPosition);
         return view;
     }
 
@@ -91,12 +88,16 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
      *
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     * @param toolbar      The Toolbar of the activity.
+     * @param adapter      NavigationDrawerAdapter
      */
-    public void setup(int fragmentId, DrawerLayout drawerLayout) {
+    public void setup(int fragmentId, DrawerLayout drawerLayout, NavigationDrawerAdapter adapter) {
         mFragmentContainerView = (View) getActivity().findViewById(fragmentId).getParent();
         mDrawerLayout = drawerLayout;
         mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.myPrimaryDarkColor));
+
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(this);
+        selectItem(mCurrentSelectedPosition);
 
         mActionBarDrawerToggle = new ActionBarDrawerToggle(
             getActivity(),
@@ -126,7 +127,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 mActionBarDrawerToggle.syncState();
             }
         });
-
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
     }
 
