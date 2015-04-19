@@ -76,6 +76,7 @@ public class TodoListFragment extends Fragment {
         ActionBarActivity activity = (ActionBarActivity)getActivity();
         activity.setSupportActionBar(mToolbar);
         activity.getSupportActionBar().setHomeButtonEnabled(true);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAdapter = new TodoListAdapter(getActivity(), mTodoManager.findAll(), true);
         mListView.setAdapter(mAdapter);

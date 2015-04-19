@@ -4,6 +4,7 @@ import static com.rakuishi.todo.NavigationDrawerItem.TYPE_SEPARATOR;
 import static com.rakuishi.todo.NavigationDrawerItem.TYPE_CHECKABLE_ITEM;
 import static com.rakuishi.todo.NavigationDrawerItem.TYPE_ITEM;
 
+import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private NavigationDrawerAdapter mAdapter;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
     public void onNavigationDrawerItemSelected(int position) {
         switch (mAdapter.getItem(position).getType()) {
             case TYPE_CHECKABLE_ITEM:
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, new TodoListFragment())
-                        .commit();
+                if (mFragment == null) {
+                    mFragment = new TodoListFragment();
+                    addFragment(mFragment);
+                } else {
+                    replaceFragment(mFragment);
+                }
                 break;
             case TYPE_ITEM:
                 // Such as Launching Activity Code
@@ -54,6 +58,20 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerC
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void addFragment(Fragment fragment) {
+        getFragmentManager()
+            .beginTransaction()
+            .add(R.id.container, fragment)
+            .commit();
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getFragmentManager()
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit();
     }
 
     private List<NavigationDrawerItem> createNavigationDrawerItemList() {
