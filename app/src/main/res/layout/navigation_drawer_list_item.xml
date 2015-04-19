@@ -14,6 +14,7 @@
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_centerVertical="true"
+        android:tint="@color/myTextColor"
         tools:src="@drawable/ic_settings"/>
 
     <TextView
@@ -24,6 +25,7 @@
         android:layout_marginStart="72dp"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/myTextColor"
         android:textSize="@dimen/sp_body"
         tools:text="Settings"/>
