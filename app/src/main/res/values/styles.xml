@@ -18,6 +18,10 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="MyTextAppearanceBody" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="ToolBarStyle" parent="">
         <item name="android:elevation">@dimen/no_elevation</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>

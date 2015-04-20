@@ -27,7 +27,6 @@
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/myTextColor"
-        android:textSize="@dimen/sp_body"
         tools:text="Settings"/>
 
 </com.rakuishi.todo.CheckableRelativeLayout>

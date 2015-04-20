@@ -28,7 +28,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_16"
                 android:layout_marginLeft="@dimen/dp_16"
-                android:textSize="@dimen/sp_subhead"
+                android:textAppearance="@style/MyTextAppearanceBody"
                 android:textColor="@color/myTextColor"
                 android:hint="@string/todo"/>
 

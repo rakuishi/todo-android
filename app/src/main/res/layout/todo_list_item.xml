@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/sp_subhead"
+        android:textAppearance="@style/MyTextAppearanceBody"
         android:textColor="@color/myTextColor"
         android:maxLines="3"
         tools:text="Todo"/>

@@ -6,5 +6,5 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:text="@string/todo_empty"
-    android:textSize="@dimen/sp_head"
+    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
     android:textColor="@color/myHintTextColor"/>
