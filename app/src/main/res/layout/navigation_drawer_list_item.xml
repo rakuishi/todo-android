@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_centerVertical="true"
-        android:tint="@color/myTextColor"
+        android:tint="@color/mySecondaryTextColor"
         tools:src="@drawable/ic_settings"/>
 
     <TextView
