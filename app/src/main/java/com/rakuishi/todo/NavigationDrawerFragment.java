@@ -20,7 +20,7 @@ import android.widget.ListView;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment implements NavigationDrawerCallbacks, AdapterView.OnItemClickListener {
+public class NavigationDrawerFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
@@ -76,11 +76,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        selectItem(position);
     }
 
     /**
@@ -182,5 +177,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         selectItem(position);
+    }
+
+    public interface NavigationDrawerCallbacks {
+        void onNavigationDrawerItemSelected(int position);
     }
 }
