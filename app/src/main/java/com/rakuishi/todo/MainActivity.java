@@ -47,11 +47,18 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 break;
             case 2:
                 break;
-            case 3:
+            case 3: {
+                Uri uri = Uri.parse("https://github.com/rakuishi/Todo-Android/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
+            }
+            case 4: {
                 Uri uri = Uri.parse("https://github.com/rakuishi/Todo-Android/issues");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
+            }
         }
     }
 
@@ -76,6 +83,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         list.add(new NavigationDrawerItem(R.drawable.ic_inbox, getResources().getString(R.string.drawer_item_inbox), TYPE_CHECKABLE_ITEM));
         list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
         list.add(new NavigationDrawerItem(R.drawable.ic_settings, getResources().getString(R.string.drawer_item_settings), TYPE_ITEM));
+        list.add(new NavigationDrawerItem(R.drawable.ic_github, getResources().getString(R.string.drawer_item_github), TYPE_ITEM));
         list.add(new NavigationDrawerItem(R.drawable.ic_help, getResources().getString(R.string.drawer_item_help), TYPE_ITEM));
         return list;
     }
