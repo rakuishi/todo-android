@@ -5,6 +5,8 @@ import static com.rakuishi.todo.NavigationDrawerItem.TYPE_CHECKABLE_ITEM;
 import static com.rakuishi.todo.NavigationDrawerItem.TYPE_ITEM;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private NavigationDrawerAdapter mAdapter;
-    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +37,20 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        switch (mAdapter.getItem(position).getType()) {
-            case TYPE_CHECKABLE_ITEM:
-                if (mFragment == null) {
-                    mFragment = new TodoListFragment();
-                    addFragment(mFragment);
-                } else {
-                    replaceFragment(mFragment);
-                }
+        if (mAdapter.getItem(position).getType() == TYPE_SEPARATOR) {
+            return;
+        }
+
+        switch (position) {
+            case 0:
+                replaceFragment(new TodoListFragment());
                 break;
-            case TYPE_ITEM:
-                // Such as Launching Activity Code
+            case 2:
+                break;
+            case 3:
+                Uri uri = Uri.parse("https://github.com/rakuishi/Todo-Android/issues");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
         }
     }
@@ -58,13 +62,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void addFragment(Fragment fragment) {
-        getFragmentManager()
-            .beginTransaction()
-            .add(R.id.container, fragment)
-            .commit();
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -79,6 +76,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         list.add(new NavigationDrawerItem(R.drawable.ic_inbox, getResources().getString(R.string.drawer_item_inbox), TYPE_CHECKABLE_ITEM));
         list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
         list.add(new NavigationDrawerItem(R.drawable.ic_settings, getResources().getString(R.string.drawer_item_settings), TYPE_ITEM));
+        list.add(new NavigationDrawerItem(R.drawable.ic_help, getResources().getString(R.string.drawer_item_help), TYPE_ITEM));
         return list;
     }
 }
