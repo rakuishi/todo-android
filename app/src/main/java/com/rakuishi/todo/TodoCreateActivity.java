@@ -3,6 +3,7 @@ package com.rakuishi.todo;
 import static com.rakuishi.todo.IntentCode.EXTRA_ID;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -18,6 +19,8 @@ import butterknife.InjectView;
  * Created by rakuishi on 15/04/18.
  */
 public class TodoCreateActivity extends ActionBarActivity implements KeyBackEditText.KeyBackListener, TextWatcher {
+
+    public static final String TAG = ActionBarActivity.class.getSimpleName();
 
     private Todo mTodo;
     private TodoManager mTodoManager;
@@ -47,13 +50,22 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
         getSupportActionBar().setTitle(R.string.todo_create);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int id = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
-            if (id != -1) {
-                mTodo = mTodoManager.find(id);
-                mEditText.setText(mTodo.getName());
-                getSupportActionBar().setTitle(R.string.todo_update);
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri uri = intent.getData();
+            if (uri != null) {
+                mEditText.setText(uri.getQueryParameter("text"));
+            }
+        } else {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                int id = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
+                if (id != -1) {
+                    mTodo = mTodoManager.find(id);
+                    mEditText.setText(mTodo.getName());
+                    getSupportActionBar().setTitle(R.string.todo_update);
+                }
             }
         }
 
@@ -80,19 +92,23 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
                     mTodoManager.update(mTodo, mEditText.getText().toString());
                 }
             case android.R.id.home:
-                finish();
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
+                finishTodoCreateActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void finishTodoCreateActivity() {
+        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
     @Override
     public void onKeyBackPressed() {
-        finish();
+        finishTodoCreateActivity();
     }
 
     @Override
