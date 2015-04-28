@@ -46,20 +46,20 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 replaceFragment(new TodoListFragment());
                 break;
             case 2:
+                openUri("https://github.com/rakuishi/Todo-Android/");
                 break;
-            case 3: {
-                Uri uri = Uri.parse("https://github.com/rakuishi/Todo-Android/");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+            case 3:
+                openUri("https://github.com/rakuishi/Todo-Android/blob/master/ATTRIBUTIONS.md");
                 break;
-            }
-            case 4: {
-                Uri uri = Uri.parse("https://github.com/rakuishi/Todo-Android/issues");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+            case 4:
+                openUri("https://github.com/rakuishi/Todo-Android/issues");
                 break;
-            }
         }
+    }
+
+    private void openUri(String uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         List<NavigationDrawerItem> list = new ArrayList<>();
         list.add(new NavigationDrawerItem(R.drawable.ic_inbox, getResources().getString(R.string.drawer_item_inbox), TYPE_CHECKABLE_ITEM));
         list.add(new NavigationDrawerItem(TYPE_SEPARATOR));
-        list.add(new NavigationDrawerItem(R.drawable.ic_settings, getResources().getString(R.string.drawer_item_settings), TYPE_ITEM));
         list.add(new NavigationDrawerItem(R.drawable.ic_github, getResources().getString(R.string.drawer_item_github), TYPE_ITEM));
+        list.add(new NavigationDrawerItem(R.drawable.ic_info, getResources().getString(R.string.drawer_item_attributions), TYPE_ITEM));
         list.add(new NavigationDrawerItem(R.drawable.ic_help, getResources().getString(R.string.drawer_item_help), TYPE_ITEM));
         return list;
     }
