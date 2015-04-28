@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.rakuishi.todo.KeyBackEditText
+            <com.rakuishi.todo.KeyEventEditText
                 android:id="@+id/todo_create_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
                 android:layout_marginLeft="@dimen/dp_16"
                 android:textAppearance="@style/MyTextAppearanceBody"
                 android:textColor="@color/myTextColor"
+                android:singleLine="true"
                 android:hint="@string/todo"/>
 
         </LinearLayout>

@@ -18,7 +18,7 @@ import butterknife.InjectView;
 /**
  * Created by rakuishi on 15/04/18.
  */
-public class TodoCreateActivity extends ActionBarActivity implements KeyBackEditText.KeyBackListener, TextWatcher {
+public class TodoCreateActivity extends ActionBarActivity implements KeyEventEditText.KeyEventListener, TextWatcher {
 
     public static final String TAG = ActionBarActivity.class.getSimpleName();
 
@@ -26,7 +26,7 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
     private TodoManager mTodoManager;
     private MenuItem mDoneMenuItem;
 
-    @InjectView(R.id.todo_create_et) KeyBackEditText mEditText;
+    @InjectView(R.id.todo_create_et) KeyEventEditText mEditText;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, TodoCreateActivity.class);
@@ -69,7 +69,7 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
             }
         }
 
-        mEditText.setKeyBackListener(this);
+        mEditText.setKeyEventListener(this);
         mEditText.addTextChangedListener(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
@@ -86,16 +86,20 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.m_done:
-                if (mTodo == null) {
-                    mTodoManager.insert(mEditText.getText().toString(), false);
-                } else {
-                    mTodoManager.update(mTodo, mEditText.getText().toString());
-                }
+                saveTodo();
             case android.R.id.home:
                 finishTodoCreateActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void saveTodo() {
+        if (mTodo == null) {
+            mTodoManager.insert(mEditText.getText().toString(), false);
+        } else {
+            mTodoManager.update(mTodo, mEditText.getText().toString());
         }
     }
 
@@ -107,7 +111,13 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyBackEdit
     }
 
     @Override
-    public void onKeyBackPressed() {
+    public void onEnterPressed() {
+        saveTodo();
+        finishTodoCreateActivity();
+    }
+
+    @Override
+    public void onBackPressed() {
         finishTodoCreateActivity();
     }
 
