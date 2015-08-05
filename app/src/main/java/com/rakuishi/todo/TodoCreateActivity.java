@@ -105,7 +105,7 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyEventEdi
 
     private void finishTodoCreateActivity() {
         finish();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TodoListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
