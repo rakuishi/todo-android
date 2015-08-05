@@ -1,6 +1,5 @@
-package com.rakuishi.todo;
+package com.rakuishi.todo.ui;
 
-import static com.rakuishi.todo.IntentCode.EXTRA_ID;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +10,12 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+
+import com.rakuishi.todo.R;
+import com.rakuishi.todo.io.Todo;
+import com.rakuishi.todo.io.TodoManager;
+
+import static com.rakuishi.todo.Config.EXTRA_ID;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

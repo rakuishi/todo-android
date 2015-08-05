@@ -1,4 +1,4 @@
-package com.rakuishi.todo;
+package com.rakuishi.todo.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.rakuishi.todo.R;
+import com.rakuishi.todo.io.Todo;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

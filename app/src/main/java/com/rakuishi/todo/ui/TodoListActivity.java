@@ -1,4 +1,4 @@
-package com.rakuishi.todo;
+package com.rakuishi.todo.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,12 +10,16 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rakuishi.todo.R;
+import com.rakuishi.todo.io.Todo;
+import com.rakuishi.todo.io.TodoManager;
+
+import static com.rakuishi.todo.Config.CODE_TODO_CREATE;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-
-import static com.rakuishi.todo.ResultCode.TODO_CREATE;
 
 public class TodoListActivity extends ActionBarActivity {
 
@@ -28,7 +32,7 @@ public class TodoListActivity extends ActionBarActivity {
 
     @OnClick(R.id.todo_list_add_ib)
     void onClickInsertButton() {
-        startActivityForResult(TodoCreateActivity.createIntent(this), TODO_CREATE);
+        startActivityForResult(TodoCreateActivity.createIntent(this), CODE_TODO_CREATE);
     }
 
     @OnItemClick(R.id.todo_list_lv)
@@ -82,7 +86,7 @@ public class TodoListActivity extends ActionBarActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) {
-            case TODO_CREATE:
+            case CODE_TODO_CREATE:
                 // RealmBaseAdapter watch Realm data changing.
                 return;
         }

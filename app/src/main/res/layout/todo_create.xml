@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.rakuishi.todo.KeyEventEditText
+            <com.rakuishi.todo.ui.KeyEventEditText
                 android:id="@+id/todo_create_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

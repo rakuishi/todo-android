@@ -1,9 +1,8 @@
-package com.rakuishi.todo;
+package com.rakuishi.todo.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;

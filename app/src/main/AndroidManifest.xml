@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".TodoListActivity"
+            android:name=".ui.TodoListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".TodoCreateActivity"
+            android:name=".ui.TodoCreateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/todo_create" >
             <intent-filter>
