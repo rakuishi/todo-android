@@ -15,6 +15,8 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.io.Todo;
 import com.rakuishi.todo.io.TodoManager;
 
+import javax.inject.Inject;
+
 import static com.rakuishi.todo.Config.EXTRA_ID;
 
 import butterknife.ButterKnife;
@@ -23,12 +25,12 @@ import butterknife.InjectView;
 /**
  * Created by rakuishi on 15/04/18.
  */
-public class TodoCreateActivity extends ActionBarActivity implements KeyEventEditText.KeyEventListener, TextWatcher {
+public class TodoCreateActivity extends BaseActivity implements KeyEventEditText.KeyEventListener, TextWatcher {
 
-    public static final String TAG = ActionBarActivity.class.getSimpleName();
+    public static final String TAG = TodoCreateActivity.class.getSimpleName();
 
     private Todo mTodo;
-    private TodoManager mTodoManager;
+    @Inject TodoManager mTodoManager;
     private MenuItem mDoneMenuItem;
 
     @InjectView(R.id.todo_create_et) KeyEventEditText mEditText;
@@ -46,10 +48,9 @@ public class TodoCreateActivity extends ActionBarActivity implements KeyEventEdi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appComponent().inject(this);
         setContentView(R.layout.todo_create);
         ButterKnife.inject(this);
-
-        mTodoManager = new TodoManager(this);
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setTitle(R.string.todo_create);

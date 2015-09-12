@@ -2,7 +2,6 @@ package com.rakuishi.todo.ui;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,6 +13,8 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.io.Todo;
 import com.rakuishi.todo.io.TodoManager;
 
+import javax.inject.Inject;
+
 import static com.rakuishi.todo.Config.CODE_TODO_CREATE;
 
 import butterknife.ButterKnife;
@@ -21,9 +22,9 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
-public class TodoListActivity extends ActionBarActivity {
+public class TodoListActivity extends BaseActivity {
 
-    private TodoManager mTodoManager;
+    @Inject TodoManager mTodoManager;
     private TodoListAdapter mAdapter;
 
     @InjectView(R.id.todo_list_lv) ListView mListView;
@@ -46,11 +47,10 @@ public class TodoListActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appComponent().inject(this);
         setContentView(R.layout.todo_list);
         ButterKnife.inject(this);
         setSupportActionBar(mToolbar);
-
-        mTodoManager = new TodoManager(this);
 
         mAdapter = new TodoListAdapter(this, mTodoManager.findAll(), true);
         mListView.setAdapter(mAdapter);
