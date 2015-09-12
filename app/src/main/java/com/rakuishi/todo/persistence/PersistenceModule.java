@@ -1,4 +1,4 @@
-package com.rakuishi.todo.io;
+package com.rakuishi.todo.persistence;
 
 import android.content.Context;
 

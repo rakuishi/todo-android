@@ -1,6 +1,6 @@
 package com.rakuishi.todo;
 
-import com.rakuishi.todo.io.PersistenceModule;
+import com.rakuishi.todo.persistence.PersistenceModule;
 import com.rakuishi.todo.ui.TodoCreateActivity;
 import com.rakuishi.todo.ui.TodoListActivity;
 

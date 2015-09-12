@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rakuishi.todo.R;
-import com.rakuishi.todo.io.Todo;
-import com.rakuishi.todo.io.TodoManager;
+import com.rakuishi.todo.persistence.Todo;
+import com.rakuishi.todo.persistence.TodoManager;
 
 import javax.inject.Inject;
 

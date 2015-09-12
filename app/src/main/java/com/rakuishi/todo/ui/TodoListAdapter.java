@@ -8,7 +8,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.rakuishi.todo.R;
-import com.rakuishi.todo.io.Todo;
+import com.rakuishi.todo.persistence.Todo;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

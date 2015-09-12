@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -12,8 +11,8 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.rakuishi.todo.R;
-import com.rakuishi.todo.io.Todo;
-import com.rakuishi.todo.io.TodoManager;
+import com.rakuishi.todo.persistence.Todo;
+import com.rakuishi.todo.persistence.TodoManager;
 
 import javax.inject.Inject;
 
