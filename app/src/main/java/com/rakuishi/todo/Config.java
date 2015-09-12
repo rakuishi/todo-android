@@ -1,8 +1,5 @@
 package com.rakuishi.todo;
 
-/**
- * Created by rakuishi on 15/08/05.
- */
 public class Config {
 
     public static final String PACKAGE = "com.rakuishi.todo";

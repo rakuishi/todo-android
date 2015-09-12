@@ -1,12 +1,7 @@
 package com.rakuishi.todo.persistence;
 
-import android.util.Log;
-
 import io.realm.RealmObject;
 
-/**
- * Created by rakuishi on 15/04/05.
- */
 public class Todo extends RealmObject {
 
     private int id;

@@ -1,6 +1,5 @@
 package com.rakuishi.todo;
 
-import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Singleton;

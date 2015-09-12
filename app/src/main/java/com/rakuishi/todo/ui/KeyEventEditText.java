@@ -8,9 +8,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by rakuishi on 15/04/20.
- */
 public class KeyEventEditText extends EditText implements TextView.OnEditorActionListener {
 
     public static final String TAG = KeyEventEditText.class.getSimpleName();

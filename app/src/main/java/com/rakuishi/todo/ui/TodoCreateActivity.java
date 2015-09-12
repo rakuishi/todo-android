@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,16 +23,12 @@ import static com.rakuishi.todo.Config.EXTRA_ID;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by rakuishi on 15/04/18.
- */
 public class TodoCreateActivity extends BaseActivity implements KeyEventEditText.KeyEventListener, TextWatcher {
 
     public static final String TAG = TodoCreateActivity.class.getSimpleName();
-
     private Todo mTodo;
-    @Inject TodoManager mTodoManager;
     private MenuItem mDoneMenuItem;
+    @Inject TodoManager mTodoManager;
 
     @Bind(R.id.todo_create_edittext) KeyEventEditText mEditText;
 
@@ -51,7 +49,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
         setContentView(R.layout.activity_todo_create);
         ButterKnife.bind(this);
 
-        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setTitle(R.string.todo_create);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -100,25 +98,12 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
         }
     }
 
-    private void saveTodo() {
-        if (mTodo == null) {
-            mTodoManager.insert(mEditText.getText().toString(), false);
-        } else {
-            mTodoManager.update(mTodo, mEditText.getText().toString());
-        }
-    }
-
-    private void finishTodoCreateActivity() {
-        finish();
-        Intent intent = new Intent(this, TodoListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-    }
-
     @Override
     public void onEnterPressed() {
-        saveTodo();
-        finishTodoCreateActivity();
+        if (enableToSave()) {
+            saveTodo();
+            finishTodoCreateActivity();
+        }
     }
 
     @Override
@@ -127,27 +112,42 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
     @Override
     public void afterTextChanged(Editable s) {
         updateDoneMenuItem(s.toString());
     }
 
+    private void saveTodo() {
+        if (mTodo == null) {
+            mTodoManager.insert(mEditText.getText().toString(), false);
+        } else {
+            mTodoManager.update(mTodo, mEditText.getText().toString());
+        }
+    }
+
+    private boolean enableToSave() {
+        return !TextUtils.isEmpty(mEditText.getText().toString());
+    }
+
     private void updateDoneMenuItem(String string) {
-        if (string.length() > 0) {
+        if (enableToSave()) {
             mDoneMenuItem.setEnabled(true);
             mDoneMenuItem.getIcon().setAlpha(255);
         } else {
             mDoneMenuItem.setEnabled(false);
             mDoneMenuItem.getIcon().setAlpha(127);
         }
+    }
+
+    private void finishTodoCreateActivity() {
+        finish();
+        Intent intent = new Intent(this, TodoListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
 }

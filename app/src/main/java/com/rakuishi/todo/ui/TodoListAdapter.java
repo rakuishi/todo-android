@@ -15,9 +15,6 @@ import butterknife.ButterKnife;
 import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 
-/**
- * Created by rakuishi on 15/04/11.
- */
 public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
 
     private Context mContext;

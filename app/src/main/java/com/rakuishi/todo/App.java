@@ -2,9 +2,6 @@ package com.rakuishi.todo;
 
 import android.app.Application;
 
-/**
- * Created by rakuishi on 15/09/12.
- */
 public class App extends Application {
 
     private static AppComponent appComponent;

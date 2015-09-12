@@ -5,9 +5,6 @@ import android.content.Context;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-/**
- * Created by rakuishi on 15/04/18.
- */
 public class TodoManager {
 
     private Realm mRealm;
