@@ -77,7 +77,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.todo_create, menu);
-        mDoneMenuItem = (MenuItem) menu.findItem(R.id.m_done);
+        mDoneMenuItem = menu.findItem(R.id.action_done);
         updateDoneMenuItem();
         return true;
     }
@@ -85,7 +85,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.m_done:
+            case R.id.action_done:
                 saveTodo();
             case android.R.id.home:
                 finishTodoCreateActivity();
