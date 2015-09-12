@@ -22,6 +22,7 @@
 
             <com.rakuishi.todo.ui.KeyEventEditText
                 android:id="@+id/todo_create_edittext"
+                android:transitionName="@string/transition_name_todo_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/dp_48"

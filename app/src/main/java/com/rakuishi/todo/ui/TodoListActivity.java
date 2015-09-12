@@ -1,11 +1,15 @@
 package com.rakuishi.todo.ui;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.support.v4.util.Pair;
 
 import com.rakuishi.todo.R;
 import com.rakuishi.todo.bus.TodoEvent;
@@ -98,9 +102,19 @@ public class TodoListActivity extends BaseActivity {
     }
 
     @OnItemLongClick(R.id.todo_list_listview)
-    boolean onItemLongClick(int position) {
+    boolean onItemLongClick(int position, View view) {
         Todo todo = mAdapter.getItem(position);
-        startActivity(TodoCreateActivity.createIntent(this, todo.getId()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Pair<View, String> pair =
+                    new Pair<>(view.findViewById(R.id.item_todo_textview), getString(R.string.transition_name_todo_name));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pair);
+
+            startActivity(TodoCreateActivity.createIntent(this, todo.getId()), options.toBundle());
+        } else {
+            startActivity(TodoCreateActivity.createIntent(this, todo.getId()));
+        }
+
         return true;
     }
 
