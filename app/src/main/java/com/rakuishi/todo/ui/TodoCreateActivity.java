@@ -14,6 +14,7 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
+import com.rakuishi.todo.utils.IntentUtils;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -55,21 +56,14 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String action = intent.getAction();
-        if (Intent.ACTION_VIEW.equals(action)) {
-            Uri uri = intent.getData();
-            if (uri != null) {
-                mEditText.setText(uri.getQueryParameter("text"));
-            }
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            mEditText.setText(IntentUtils.getQueryParameter(intent, "text"));
         } else {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                int id = (extras.containsKey(EXTRA_ID)) ? extras.getInt(EXTRA_ID) : -1;
-                if (id != -1) {
-                    mTodo = mTodoManager.find(id);
-                    mEditText.setText(mTodo.getName());
-                    getSupportActionBar().setTitle(R.string.todo_update);
-                }
+            int id = IntentUtils.getInt(intent, EXTRA_ID);
+            if (id != 0) {
+                mTodo = mTodoManager.find(id);
+                mEditText.setText(mTodo.getName());
+                getSupportActionBar().setTitle(R.string.todo_update);
             }
         }
 

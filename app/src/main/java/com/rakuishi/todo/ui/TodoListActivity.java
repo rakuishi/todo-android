@@ -1,10 +1,7 @@
 package com.rakuishi.todo.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -14,6 +11,7 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
+import com.rakuishi.todo.utils.IntentUtils;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -74,13 +72,13 @@ public class TodoListActivity extends BaseActivity {
                 mBus.post(new TodoEvent(TodoEvent.QUERY_DELETE));
                 break;
             case R.id.action_github:
-                openUri("https://github.com/rakuishi/Todo-Android/");
+                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/");
                 break;
             case R.id.action_attributions:
-                openUri("https://github.com/rakuishi/Todo-Android/blob/master/ATTRIBUTIONS.md");
+                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/blob/master/ATTRIBUTIONS.md");
                 break;
             case R.id.action_help:
-                openUri("https://github.com/rakuishi/Todo-Android/issues");
+                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/issues");
                 break;
         }
 
@@ -111,10 +109,5 @@ public class TodoListActivity extends BaseActivity {
         mList.clear();
         mList.addAll(mTodoManager.findAll());
         mAdapter.notifyDataSetChanged();
-    }
-
-    private void openUri(String uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        startActivity(intent);
     }
 }
