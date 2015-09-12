@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -23,7 +21,7 @@ import static com.rakuishi.todo.Config.EXTRA_ID;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class TodoCreateActivity extends BaseActivity implements KeyEventEditText.KeyEventListener, TextWatcher {
+public class TodoCreateActivity extends BaseActivity implements KeyEventEditText.KeyEventListener {
 
     public static final String TAG = TodoCreateActivity.class.getSimpleName();
     private Todo mTodo;
@@ -73,7 +71,6 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
         }
 
         mEditText.setKeyEventListener(this);
-        mEditText.addTextChangedListener(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
@@ -81,7 +78,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.todo_create, menu);
         mDoneMenuItem = (MenuItem) menu.findItem(R.id.m_done);
-        updateDoneMenuItem(mEditText.getText().toString());
+        updateDoneMenuItem();
         return true;
     }
 
@@ -112,14 +109,8 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        updateDoneMenuItem(s.toString());
+    public void onTextChanged() {
+        updateDoneMenuItem();
     }
 
     private void saveTodo() {
@@ -131,10 +122,10 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     }
 
     private boolean enableToSave() {
-        return !TextUtils.isEmpty(mEditText.getText().toString());
+        return mEditText != null && !TextUtils.isEmpty(mEditText.getText().toString());
     }
 
-    private void updateDoneMenuItem(String string) {
+    private void updateDoneMenuItem() {
         if (enableToSave()) {
             mDoneMenuItem.setEnabled(true);
             mDoneMenuItem.getIcon().setAlpha(255);

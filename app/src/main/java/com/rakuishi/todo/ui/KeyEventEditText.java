@@ -1,32 +1,57 @@
 package com.rakuishi.todo.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class KeyEventEditText extends EditText implements TextView.OnEditorActionListener {
+public class KeyEventEditText extends EditText implements TextView.OnEditorActionListener, TextWatcher {
+
+    public interface KeyEventListener {
+        void onEnterPressed();
+        void onBackPressed();
+        void onTextChanged();
+    }
 
     public static final String TAG = KeyEventEditText.class.getSimpleName();
-
     private KeyEventListener mKeyEventListener;
 
     public KeyEventEditText(Context context) {
         super(context, null);
-        init();
+        initView();
     }
 
     public KeyEventEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        initView();
     }
 
-    private void init() {
-        this.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        this.setOnEditorActionListener(this);
+    public KeyEventEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public KeyEventEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initView();
+    }
+
+    private void initView() {
+        setImeOptions(EditorInfo.IME_ACTION_DONE);
+        setOnEditorActionListener(this);
+        addTextChangedListener(this);
+    }
+
+    public void setKeyEventListener(KeyEventListener listener) {
+        mKeyEventListener = listener;
     }
 
     @Override
@@ -47,12 +72,16 @@ public class KeyEventEditText extends EditText implements TextView.OnEditorActio
         return false;
     }
 
-    public void setKeyEventListener(KeyEventListener listener) {
-        mKeyEventListener = listener;
-    }
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
-    public interface KeyEventListener {
-        void onEnterPressed();
-        void onBackPressed();
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (mKeyEventListener != null) {
+            mKeyEventListener.onTextChanged();
+        }
     }
 }
