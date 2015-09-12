@@ -12,6 +12,6 @@ public class PersistenceModule {
 
     @Provides @Singleton
     public TodoManager provideTodoManager(Context context) {
-        return new TodoManager(context);
+        return new TodoRealmManager(context);
     }
 }
