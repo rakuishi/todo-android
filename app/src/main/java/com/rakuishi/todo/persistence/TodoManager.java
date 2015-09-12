@@ -43,6 +43,7 @@ public class TodoManager {
 
     public void update(Todo todo, String name) {
         mRealm.beginTransaction();
+        todo = mRealm.copyToRealm(todo);
         todo.setName(name);
         mRealm.commitTransaction();
     }
