@@ -2,6 +2,8 @@ package com.rakuishi.todo.persistence;
 
 import android.content.Context;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -17,8 +19,9 @@ public class TodoManager {
         return mRealm.where(Todo.class).equalTo("id", id).findAll().first();
     }
 
-    public RealmResults<Todo> findAll() {
-        return mRealm.where(Todo.class).findAll();
+    public List<Todo> findAll() {
+        RealmResults<Todo> results = mRealm.where(Todo.class).findAll();
+        return results.subList(0, results.size());
     }
 
     public void insert(String name, boolean completed) {

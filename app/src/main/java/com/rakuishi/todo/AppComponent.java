@@ -1,5 +1,6 @@
 package com.rakuishi.todo;
 
+import com.rakuishi.todo.bus.BusModule;
 import com.rakuishi.todo.persistence.PersistenceModule;
 import com.rakuishi.todo.ui.TodoCreateActivity;
 import com.rakuishi.todo.ui.TodoListActivity;
@@ -12,6 +13,7 @@ import dagger.Component;
 @Component(
     modules = {
         AppModule.class,
+        BusModule.class,
         PersistenceModule.class
     }
 )

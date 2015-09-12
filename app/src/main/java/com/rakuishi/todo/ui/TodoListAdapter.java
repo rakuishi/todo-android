@@ -4,26 +4,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.rakuishi.todo.R;
 import com.rakuishi.todo.persistence.Todo;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.realm.RealmBaseAdapter;
-import io.realm.RealmResults;
 
-public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapter {
+public class TodoListAdapter extends ArrayAdapter<Todo> implements ListAdapter {
 
-    private Context mContext;
-    private LayoutInflater mLayoutInflater;
-
-    public TodoListAdapter(Context context, RealmResults<Todo> realmResults, boolean automaticUpdate) {
-        super(context, realmResults, automaticUpdate);
-        mContext = context;
-        mLayoutInflater = LayoutInflater.from(context);
+    public TodoListAdapter(Context context, List<Todo> list) {
+        super(context, 0, list);
     }
 
     @Override
@@ -31,18 +27,18 @@ public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapt
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.item_todo, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_todo, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        Todo todo = realmResults.get(position);
+        Todo todo = getItem(position);
         int textColor = todo.isCompleted() ? R.color.myDisabledTextColor : R.color.myTextColor;
 
         viewHolder.textView.setText(todo.getName());
-        viewHolder.textView.setTextColor(mContext.getResources().getColor(textColor));
+        viewHolder.textView.setTextColor(getContext().getResources().getColor(textColor));
 
         return convertView;
     }

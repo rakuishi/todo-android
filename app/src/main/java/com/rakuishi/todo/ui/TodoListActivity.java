@@ -4,18 +4,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rakuishi.todo.R;
+import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
-
-import static com.rakuishi.todo.Config.CODE_TODO_CREATE;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +32,9 @@ public class TodoListActivity extends BaseActivity {
 
     public static final String TAG = TodoListActivity.class.getSimpleName();
     private TodoListAdapter mAdapter;
+    private List<Todo> mList = new ArrayList<>();
     @Inject TodoManager mTodoManager;
+    @Inject Bus mBus;
 
     @Bind(R.id.todo_list_listview) ListView mListView;
     @Bind(R.id.todo_list_empty_view) TextView mEmptyTextView;
@@ -39,10 +46,18 @@ public class TodoListActivity extends BaseActivity {
         setContentView(R.layout.activity_todo_list);
         ButterKnife.bind(this);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        mBus.register(this);
 
-        mAdapter = new TodoListAdapter(this, mTodoManager.findAll(), true);
+        mList.addAll(mTodoManager.findAll());
+        mAdapter = new TodoListAdapter(this, mList);
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(mEmptyTextView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBus.unregister(this);
     }
 
     @Override
@@ -56,6 +71,7 @@ public class TodoListActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_delete:
                 mTodoManager.deleteCompleted();
+                mBus.post(new TodoEvent(TodoEvent.QUERY_DELETE));
                 break;
             case R.id.action_github:
                 openUri("https://github.com/rakuishi/Todo-Android/");
@@ -71,35 +87,30 @@ public class TodoListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
-            case CODE_TODO_CREATE:
-                // RealmBaseAdapter watch Realm data changing.
-                return;
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     @OnClick(R.id.todo_list_add_imagebutton)
     void onClickInsertButton() {
-        startActivityForResult(TodoCreateActivity.createIntent(this), CODE_TODO_CREATE);
+        startActivity(TodoCreateActivity.createIntent(this));
     }
 
     @OnItemClick(R.id.todo_list_listview)
     void onItemClick(int position) {
         Todo todo = mAdapter.getItem(position);
         mTodoManager.update(todo, !todo.isCompleted());
-        mAdapter.notifyDataSetChanged();
-        mListView.invalidate();
+        mBus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
     }
 
     @OnItemLongClick(R.id.todo_list_listview)
     boolean onItemLongClick(int position) {
         Todo todo = mAdapter.getItem(position);
-        startActivityForResult(TodoCreateActivity.createIntent(this, todo.getId()), CODE_TODO_CREATE);
+        startActivity(TodoCreateActivity.createIntent(this, todo.getId()));
         return true;
+    }
+
+    @Subscribe
+    public void onTodoEvent(TodoEvent event) {
+        mList.clear();
+        mList.addAll(mTodoManager.findAll());
+        mAdapter.notifyDataSetChanged();
     }
 
     private void openUri(String uri) {

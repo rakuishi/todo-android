@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.rakuishi.todo.R;
+import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
+import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
@@ -27,6 +29,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     private Todo mTodo;
     private MenuItem mDoneMenuItem;
     @Inject TodoManager mTodoManager;
+    @Inject Bus mBus;
 
     @Bind(R.id.todo_create_edittext) KeyEventEditText mEditText;
 
@@ -116,8 +119,10 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     private void saveTodo() {
         if (mTodo == null) {
             mTodoManager.insert(mEditText.getText().toString(), false);
+            mBus.post(new TodoEvent(TodoEvent.QUERY_INSERT));
         } else {
             mTodoManager.update(mTodo, mEditText.getText().toString());
+            mBus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
         }
     }
 
