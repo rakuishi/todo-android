@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/dp_16">
 
     <TextView
-        android:id="@+id/todo_list_item_tv"
+        android:id="@+id/item_todo_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

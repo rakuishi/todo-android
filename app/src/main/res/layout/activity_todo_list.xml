@@ -7,7 +7,7 @@
 
     <include
         layout="@layout/toolbar"
-        android:id="@+id/todo_list_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"/>
 
@@ -16,16 +16,16 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/todo_list_lv"
+            android:id="@+id/todo_list_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <include
-            android:id="@+id/todo_list_empty_tv"
-            layout="@layout/todo_empty"/>
+            android:id="@+id/todo_list_empty_view"
+            layout="@layout/empty_view"/>
 
         <ImageButton
-            android:id="@+id/todo_list_add_ib"
+            android:id="@+id/todo_list_add_imagebutton"
             android:layout_width="@dimen/dp_56"
             android:layout_height="@dimen/dp_56"
             android:layout_gravity="right|bottom"

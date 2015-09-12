@@ -34,7 +34,7 @@ public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapt
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.todo_list_item, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.item_todo, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -51,7 +51,7 @@ public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapt
     }
 
     public static class ViewHolder {
-        @Bind(R.id.todo_list_item_tv) TextView textView;
+        @Bind(R.id.item_todo_textview) TextView textView;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

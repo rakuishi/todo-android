@@ -27,16 +27,16 @@ public class TodoListActivity extends BaseActivity {
     @Inject TodoManager mTodoManager;
     private TodoListAdapter mAdapter;
 
-    @Bind(R.id.todo_list_lv) ListView mListView;
-    @Bind(R.id.todo_list_toolbar) Toolbar mToolbar;
-    @Bind(R.id.todo_list_empty_tv) TextView mEmptyTextView;
+    @Bind(R.id.todo_list_listview) ListView mListView;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.todo_list_empty_view) TextView mEmptyTextView;
 
-    @OnClick(R.id.todo_list_add_ib)
+    @OnClick(R.id.todo_list_add_imagebutton)
     void onClickInsertButton() {
         startActivityForResult(TodoCreateActivity.createIntent(this), CODE_TODO_CREATE);
     }
 
-    @OnItemClick(R.id.todo_list_lv)
+    @OnItemClick(R.id.todo_list_listview)
     void onItemClick(int position) {
         Todo todo = mAdapter.getItem(position);
         mTodoManager.update(todo, !todo.isCompleted());
@@ -48,7 +48,7 @@ public class TodoListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appComponent().inject(this);
-        setContentView(R.layout.todo_list);
+        setContentView(R.layout.activity_todo_list);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
