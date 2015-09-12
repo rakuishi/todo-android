@@ -18,8 +18,8 @@ import javax.inject.Inject;
 
 import static com.rakuishi.todo.Config.EXTRA_ID;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by rakuishi on 15/04/18.
@@ -32,7 +32,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     @Inject TodoManager mTodoManager;
     private MenuItem mDoneMenuItem;
 
-    @InjectView(R.id.todo_create_et) KeyEventEditText mEditText;
+    @Bind(R.id.todo_create_et) KeyEventEditText mEditText;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, TodoCreateActivity.class);
@@ -49,7 +49,7 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
         super.onCreate(savedInstanceState);
         appComponent().inject(this);
         setContentView(R.layout.todo_create);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setTitle(R.string.todo_create);

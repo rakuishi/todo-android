@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.rakuishi.todo.R;
 import com.rakuishi.todo.persistence.Todo;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 
@@ -51,10 +51,10 @@ public class TodoListAdapter extends RealmBaseAdapter<Todo> implements ListAdapt
     }
 
     public static class ViewHolder {
-        @InjectView(R.id.todo_list_item_tv) TextView textView;
+        @Bind(R.id.todo_list_item_tv) TextView textView;
 
         public ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

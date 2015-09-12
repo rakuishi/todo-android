@@ -17,8 +17,8 @@ import javax.inject.Inject;
 
 import static com.rakuishi.todo.Config.CODE_TODO_CREATE;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
@@ -27,9 +27,9 @@ public class TodoListActivity extends BaseActivity {
     @Inject TodoManager mTodoManager;
     private TodoListAdapter mAdapter;
 
-    @InjectView(R.id.todo_list_lv) ListView mListView;
-    @InjectView(R.id.todo_list_toolbar) Toolbar mToolbar;
-    @InjectView(R.id.todo_list_empty_tv) TextView mEmptyTextView;
+    @Bind(R.id.todo_list_lv) ListView mListView;
+    @Bind(R.id.todo_list_toolbar) Toolbar mToolbar;
+    @Bind(R.id.todo_list_empty_tv) TextView mEmptyTextView;
 
     @OnClick(R.id.todo_list_add_ib)
     void onClickInsertButton() {
@@ -49,7 +49,7 @@ public class TodoListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         appComponent().inject(this);
         setContentView(R.layout.todo_list);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
         mAdapter = new TodoListAdapter(this, mTodoManager.findAll(), true);

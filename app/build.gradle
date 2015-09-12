@@ -26,7 +26,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'io.realm:realm-android:0.80.0'
     compile 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.dagger:dagger:2.0.1'
