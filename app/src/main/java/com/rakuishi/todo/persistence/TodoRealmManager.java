@@ -17,7 +17,7 @@ public class TodoRealmManager implements TodoManager {
 
     @Override
     public Todo find(int id) {
-        return mRealm.where(Todo.class).equalTo("id", id).findAll().first();
+        return mRealm.where(Todo.class).equalTo("id", id).findFirst();
     }
 
     @Override
