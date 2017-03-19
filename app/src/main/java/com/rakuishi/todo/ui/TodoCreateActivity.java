@@ -2,7 +2,6 @@ package com.rakuishi.todo.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -14,7 +13,7 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
-import com.rakuishi.todo.utils.IntentUtils;
+import com.rakuishi.todo.util.IntentUtil;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -57,9 +56,9 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
 
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-            mEditText.setText(IntentUtils.getQueryParameter(intent, "text"));
+            mEditText.setText(IntentUtil.getQueryParameter(intent, "text"));
         } else {
-            int id = IntentUtils.getInt(intent, EXTRA_ID);
+            int id = IntentUtil.getInt(intent, EXTRA_ID);
             if (id != 0) {
                 mTodo = mTodoManager.find(id);
                 mEditText.setText(mTodo.getName());

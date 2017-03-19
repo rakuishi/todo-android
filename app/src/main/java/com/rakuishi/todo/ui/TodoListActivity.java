@@ -15,7 +15,7 @@ import com.rakuishi.todo.R;
 import com.rakuishi.todo.bus.TodoEvent;
 import com.rakuishi.todo.persistence.Todo;
 import com.rakuishi.todo.persistence.TodoManager;
-import com.rakuishi.todo.utils.IntentUtils;
+import com.rakuishi.todo.util.IntentUtil;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -76,13 +76,13 @@ public class TodoListActivity extends BaseActivity {
                 mBus.post(new TodoEvent(TodoEvent.QUERY_DELETE));
                 break;
             case R.id.action_github:
-                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/");
+                IntentUtil.openUri(this, "https://github.com/rakuishi/Todo-Android/");
                 break;
             case R.id.action_attributions:
-                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/blob/master/ATTRIBUTIONS.md");
+                IntentUtil.openUri(this, "https://github.com/rakuishi/Todo-Android/blob/master/ATTRIBUTIONS.md");
                 break;
             case R.id.action_help:
-                IntentUtils.openUri(this, "https://github.com/rakuishi/Todo-Android/issues");
+                IntentUtil.openUri(this, "https://github.com/rakuishi/Todo-Android/issues");
                 break;
         }
 

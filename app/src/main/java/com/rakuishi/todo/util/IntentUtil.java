@@ -1,4 +1,4 @@
-package com.rakuishi.todo.utils;
+package com.rakuishi.todo.util;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-public class IntentUtils {
+public class IntentUtil {
 
-    private IntentUtils() {}
+    private IntentUtil() {}
 
     public static void openUri(Activity activity, String uri) {
         try {
