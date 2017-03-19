@@ -33,13 +33,13 @@ import butterknife.OnItemLongClick;
 public class TodoListActivity extends BaseActivity {
 
     public static final String TAG = TodoListActivity.class.getSimpleName();
-    private TodoListAdapter mAdapter;
-    private List<Todo> mList = new ArrayList<>();
-    @Inject TodoManager mTodoManager;
-    @Inject Bus mBus;
+    private TodoListAdapter adapter;
+    private List<Todo> list = new ArrayList<>();
+    @Inject TodoManager todoManager;
+    @Inject Bus bus;
 
-    @Bind(R.id.todo_list_listview) ListView mListView;
-    @Bind(R.id.todo_list_empty_view) TextView mEmptyTextView;
+    @Bind(R.id.todo_list_listview) ListView listView;
+    @Bind(R.id.todo_list_empty_view) TextView emptyTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +48,18 @@ public class TodoListActivity extends BaseActivity {
         setContentView(R.layout.activity_todo_list);
         ButterKnife.bind(this);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        mBus.register(this);
+        bus.register(this);
 
-        mList.addAll(mTodoManager.findAll());
-        mAdapter = new TodoListAdapter(this, mList);
-        mListView.setAdapter(mAdapter);
-        mListView.setEmptyView(mEmptyTextView);
+        list.addAll(todoManager.findAll());
+        adapter = new TodoListAdapter(this, list);
+        listView.setAdapter(adapter);
+        listView.setEmptyView(emptyTextView);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBus.unregister(this);
+        bus.unregister(this);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class TodoListActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
-                mTodoManager.deleteCompleted();
-                mBus.post(new TodoEvent(TodoEvent.QUERY_DELETE));
+                todoManager.deleteCompleted();
+                bus.post(new TodoEvent(TodoEvent.QUERY_DELETE));
                 break;
             case R.id.action_github:
                 IntentUtil.openUri(this, "https://github.com/rakuishi/Todo-Android/");
@@ -96,14 +96,14 @@ public class TodoListActivity extends BaseActivity {
 
     @OnItemClick(R.id.todo_list_listview)
     void onItemClick(int position) {
-        Todo todo = mAdapter.getItem(position);
-        mTodoManager.update(todo, !todo.isCompleted());
-        mBus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
+        Todo todo = adapter.getItem(position);
+        todoManager.update(todo, !todo.isCompleted());
+        bus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
     }
 
     @OnItemLongClick(R.id.todo_list_listview)
     boolean onItemLongClick(int position, View view) {
-        Todo todo = mAdapter.getItem(position);
+        Todo todo = adapter.getItem(position);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Pair<View, String> pair =
@@ -120,8 +120,8 @@ public class TodoListActivity extends BaseActivity {
 
     @Subscribe
     public void onTodoEvent(TodoEvent event) {
-        mList.clear();
-        mList.addAll(mTodoManager.findAll());
-        mAdapter.notifyDataSetChanged();
+        list.clear();
+        list.addAll(todoManager.findAll());
+        adapter.notifyDataSetChanged();
     }
 }

@@ -9,62 +9,62 @@ import io.realm.RealmResults;
 
 public class TodoRealmManager implements TodoManager {
 
-    private Realm mRealm;
+    private Realm realm;
 
     public TodoRealmManager(Context context) {
-        mRealm = Realm.getInstance(context);
+        realm = Realm.getInstance(context);
     }
 
     @Override
     public Todo find(int id) {
-        return mRealm.where(Todo.class).equalTo("id", id).findFirst();
+        return realm.where(Todo.class).equalTo("id", id).findFirst();
     }
 
     @Override
     public List<Todo> findAll() {
-        RealmResults<Todo> results = mRealm.where(Todo.class).findAll();
+        RealmResults<Todo> results = realm.where(Todo.class).findAll();
         return results.subList(0, results.size());
     }
 
     @Override
     public void insert(String name, boolean completed) {
-        mRealm.beginTransaction();
-        Todo todo = mRealm.createObject(Todo.class);
-        todo.setId((int)mRealm.where(Todo.class).maximumInt("id") + 1);
+        realm.beginTransaction();
+        Todo todo = realm.createObject(Todo.class);
+        todo.setId((int) realm.where(Todo.class).maximumInt("id") + 1);
         todo.setName(name);
         todo.setCompleted(completed);
-        mRealm.commitTransaction();
+        realm.commitTransaction();
     }
 
     @Override
     public void update(int id, String name, boolean completed) {
-        mRealm.beginTransaction();
+        realm.beginTransaction();
         Todo todo = find(id);
         todo.setName(name);
         todo.setCompleted(completed);
-        mRealm.commitTransaction();
+        realm.commitTransaction();
     }
 
     @Override
     public void update(Todo todo, String name) {
-        mRealm.beginTransaction();
-        todo = mRealm.copyToRealm(todo);
+        realm.beginTransaction();
+        todo = realm.copyToRealm(todo);
         todo.setName(name);
-        mRealm.commitTransaction();
+        realm.commitTransaction();
     }
 
     @Override
     public void update(Todo todo, boolean completed) {
-        mRealm.beginTransaction();
+        realm.beginTransaction();
         todo.setCompleted(completed);
-        mRealm.commitTransaction();
+        realm.commitTransaction();
     }
 
     @Override
     public void deleteCompleted() {
-        mRealm.beginTransaction();
-        RealmResults<Todo> results = mRealm.where(Todo.class).equalTo("completed", true).findAll();
+        realm.beginTransaction();
+        RealmResults<Todo> results = realm.where(Todo.class).equalTo("completed", true).findAll();
         results.clear();
-        mRealm.commitTransaction();
+        realm.commitTransaction();
     }
 }

@@ -26,12 +26,12 @@ import butterknife.ButterKnife;
 public class TodoCreateActivity extends BaseActivity implements KeyEventEditText.KeyEventListener {
 
     public static final String TAG = TodoCreateActivity.class.getSimpleName();
-    private Todo mTodo;
-    private MenuItem mDoneMenuItem;
-    @Inject TodoManager mTodoManager;
-    @Inject Bus mBus;
+    private Todo todo;
+    private MenuItem doneMenuItem;
+    @Inject TodoManager todoManager;
+    @Inject Bus bus;
 
-    @Bind(R.id.todo_create_edittext) KeyEventEditText mEditText;
+    @Bind(R.id.todo_create_edittext) KeyEventEditText editText;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, TodoCreateActivity.class);
@@ -56,24 +56,24 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
 
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-            mEditText.setText(IntentUtil.getQueryParameter(intent, "text"));
+            editText.setText(IntentUtil.getQueryParameter(intent, "text"));
         } else {
             int id = IntentUtil.getInt(intent, EXTRA_ID);
             if (id != 0) {
-                mTodo = mTodoManager.find(id);
-                mEditText.setText(mTodo.getName());
+                todo = todoManager.find(id);
+                editText.setText(todo.getName());
                 getSupportActionBar().setTitle(R.string.todo_update);
             }
         }
 
-        mEditText.setKeyEventListener(this);
+        editText.setKeyEventListener(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.todo_create, menu);
-        mDoneMenuItem = menu.findItem(R.id.action_done);
+        doneMenuItem = menu.findItem(R.id.action_done);
         updateDoneMenuItem();
         return true;
     }
@@ -110,26 +110,26 @@ public class TodoCreateActivity extends BaseActivity implements KeyEventEditText
     }
 
     private void saveTodo() {
-        if (mTodo == null) {
-            mTodoManager.insert(mEditText.getText().toString(), false);
-            mBus.post(new TodoEvent(TodoEvent.QUERY_INSERT));
+        if (todo == null) {
+            todoManager.insert(editText.getText().toString(), false);
+            bus.post(new TodoEvent(TodoEvent.QUERY_INSERT));
         } else {
-            mTodoManager.update(mTodo, mEditText.getText().toString());
-            mBus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
+            todoManager.update(todo, editText.getText().toString());
+            bus.post(new TodoEvent(TodoEvent.QUERY_UPDATE));
         }
     }
 
     private boolean enableToSave() {
-        return mEditText != null && !TextUtils.isEmpty(mEditText.getText().toString());
+        return editText != null && !TextUtils.isEmpty(editText.getText().toString());
     }
 
     private void updateDoneMenuItem() {
         if (enableToSave()) {
-            mDoneMenuItem.setEnabled(true);
-            mDoneMenuItem.getIcon().setAlpha(255);
+            doneMenuItem.setEnabled(true);
+            doneMenuItem.getIcon().setAlpha(255);
         } else {
-            mDoneMenuItem.setEnabled(false);
-            mDoneMenuItem.getIcon().setAlpha(127);
+            doneMenuItem.setEnabled(false);
+            doneMenuItem.getIcon().setAlpha(127);
         }
     }
 

@@ -21,7 +21,7 @@ public class KeyEventEditText extends EditText implements TextView.OnEditorActio
     }
 
     public static final String TAG = KeyEventEditText.class.getSimpleName();
-    private KeyEventListener mKeyEventListener;
+    private KeyEventListener keyEventListener;
 
     public KeyEventEditText(Context context) {
         super(context, null);
@@ -51,13 +51,13 @@ public class KeyEventEditText extends EditText implements TextView.OnEditorActio
     }
 
     public void setKeyEventListener(KeyEventListener listener) {
-        mKeyEventListener = listener;
+        keyEventListener = listener;
     }
 
     @Override
     public boolean onKeyPreIme(int keyCode, @NonNull KeyEvent event) {
-        if (mKeyEventListener != null && keyCode == KeyEvent.KEYCODE_BACK) {
-            mKeyEventListener.onBackPressed();
+        if (keyEventListener != null && keyCode == KeyEvent.KEYCODE_BACK) {
+            keyEventListener.onBackPressed();
             return true;
         }
         return false;
@@ -65,8 +65,8 @@ public class KeyEventEditText extends EditText implements TextView.OnEditorActio
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (mKeyEventListener != null && actionId == EditorInfo.IME_ACTION_DONE) {
-            mKeyEventListener.onEnterPressed();
+        if (keyEventListener != null && actionId == EditorInfo.IME_ACTION_DONE) {
+            keyEventListener.onEnterPressed();
             return true;
         }
         return false;
@@ -80,8 +80,8 @@ public class KeyEventEditText extends EditText implements TextView.OnEditorActio
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (mKeyEventListener != null) {
-            mKeyEventListener.onTextChanged();
+        if (keyEventListener != null) {
+            keyEventListener.onTextChanged();
         }
     }
 }
