@@ -29,6 +29,8 @@ dependencies {
     // Realm 0.83 or later, it contains a number of breaking changes. That's why I cannot use latest Realm version.
     // https://github.com/realm/realm-java/blob/master/CHANGELOG.md#083-2015-10-08
     compile 'io.realm:realm-android:0.82.2'
+    // Otto is now deprecated in favor of RxJava and RxAndroid.
+    // https://github.com/square/otto#deprecated
     compile 'com.squareup:otto:1.3.8'
     compile 'com.google.dagger:dagger:2.9'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
